@@ -1,4 +1,5 @@
 const passport = require("passport");
+require("dotenv").config();
 const JwtStrategy = require("passport-jwt").Strategy;
 const { ExtractJwt } = require("passport-jwt");
 const JWT_SECRETO = process.env.JWT_KEY_USERS;
@@ -14,7 +15,7 @@ passport.use(
     async (payload, done) => {
       try {
         const _user = await user.findByPk(payload.user_id);
-        if (!_user || !_user.activo) {
+        if (!_user || !_user.active) {
           return done(null, false); //en caso de que el user no exista o este inactivo dispara el acceso denegado
         }
 

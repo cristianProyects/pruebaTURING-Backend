@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 const login = (req, res) => {
   user
     .findOne({
-      where: { email: req.body.email, activo: true },
+      where: { email: req.body.email, active: true },
     })
     .then((data) => {
       if (!data) {

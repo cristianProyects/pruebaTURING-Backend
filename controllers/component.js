@@ -1,10 +1,20 @@
 const db = require("../models");
 const component = db.component;
 
+const dateAll = async (req, res) => {
+  const data = await component.findAll();
+  return res.status(200).send({ data });
+};
+const readAll = async (req, res) => {
+  const { id } = req.params;
+
+  const data = await component.findAll({ whre: { category_id: id } });
+  return res.status(200).send({ data });
+};
 const read = async (req, res) => {
   const { id } = req.params;
 
-  const data = await component.findByPk(id);
+  const data = await component.findAll({ where: { category_id: id } });
   return res.status(200).send({ data });
 };
 const remove = async (req, res) => {
@@ -28,4 +38,4 @@ const update = async (req, res) => {
   _component.update(req.body);
   return res.status(200).send({ message: "Componente actualizado" });
 };
-module.exports = { read, remove, create, update };
+module.exports = { read, remove, create, update, readAll,dateAll };
